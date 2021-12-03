@@ -19,7 +19,7 @@ password= "abcdefghik"
 
 # browser = webdriver.Chrome()
 browser.get(('https://vod.antenna.gr/#/'))
-print(browser.page_source)
+# print(browser.page_source)
 loginButton = WebDriverWait(browser, 10).until(
     EC.presence_of_element_located((By.XPATH, "//div[@class='login-box']//button[1]//span"))
 )
@@ -51,7 +51,7 @@ for request in browser.requests:
 			print(token)
 	    
 
-# print(token)
+print(token)
 
 red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661', 
                 password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
