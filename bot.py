@@ -36,7 +36,7 @@ WebDriverWait(browser, 10).until(lambda d: d.title != "")
 # switch windows
 browser.switch_to.window(browser.window_handles[-1])
 
-
+print(browser.page_source)
 userInput = browser.find_element(By.ID,'loginId')
 userInput.send_keys(username)
 passInput = browser.find_element(By.ID,'password')
