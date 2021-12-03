@@ -1,4 +1,4 @@
-from seleniumwire import webdriver
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,7 +19,7 @@ password= "abcdefghik"
 
 # browser = webdriver.Chrome()
 browser.get(('https://vod.antenna.gr/#/'))
-# print(browser.page_source)
+print("\nasdfasdfasdfadf\n")
 loginButton = WebDriverWait(browser, 10).until(
     EC.presence_of_element_located((By.XPATH, "//div[@class='login-box']//button[1]//span"))
 )
