@@ -22,9 +22,7 @@ browser.get(('https://vod.antenna.gr/#/'))
 
 print("\nasdfasdfasdfadf\n")
 
-loginButton = WebDriverWait(browser, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//body"))
-)
+loginButton = browser.find_element(By.XPATH, "//body")
 print (loginButton)
 browser.execute_script("arguments[0].click();", loginButton)
 
