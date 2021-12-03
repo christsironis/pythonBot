@@ -23,11 +23,11 @@ browser.get(('https://vod.antenna.gr/#/'))
 print("\nasdfasdfasdfadf\n")
 
 loginButton = WebDriverWait(browser, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//div[@class='login-box']//button[1]//span"))
+    EC.presence_of_element_located((By.XPATH, "//body"))
 )
+print (loginButton)
 browser.execute_script("arguments[0].click();", loginButton)
 
-print (loginButton)
 
 # wait to make sure there are two windows open
 WebDriverWait(browser, 10).until(lambda d: len(d.window_handles) == 2)
