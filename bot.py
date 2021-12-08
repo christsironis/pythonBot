@@ -41,13 +41,12 @@ for request in browser.requests:
 			token=url.urlencode(request.params)
 			print(token)
 	    
-
-# print(token)
-
 red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661', 
                 password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
 old = red.get('password')
 red.set('old_password', old)
 red.set('password', token)
+
+browser.close()
 
 
