@@ -8,7 +8,10 @@ import redis
 username= "christsironiss@gmail.com"
 password= "abcdefghik"
 
-browser = webdriver.Chrome()
+PATH = "./chromedriver"
+browser = webdriver.Chrome(PATH)
+
+# browser = webdriver.Chrome()
 browser.get(('https://vod.antenna.gr/#/'))
 
 loginButton = WebDriverWait(browser, 10).until(
