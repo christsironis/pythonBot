@@ -16,30 +16,21 @@ username= "christsironiss@gmail.com"
 password= "abcdefghik"
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--window-size=1280x1696')
 chrome_options.add_argument('--user-data-dir=/tmp/user-data')
-chrome_options.add_argument('--hide-scrollbars')
 chrome_options.add_argument('--enable-logging')
 chrome_options.add_argument('--log-level=0')
 chrome_options.add_argument('--v=99')
 chrome_options.add_argument('--single-process')
-chrome_options.add_argument('--data-path=/tmp/data-path')
 chrome_options.add_argument('--ignore-certificate-errors')
-chrome_options.add_argument('--homedir=/tmp')
-chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument("--start-maximized")
+chrome_options.add_argument("--window-size=1920x1080") 
+chrome_options.add_argument('disable-blink-features=AutomationControlled')
+chrome_options.add_argument('accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
-   
-# chrome_options.add_argument('--headless')
-# chrome_options.add_argument('--disable-gpu')
-# chrome_options.add_argument('--no-sandbox')
-# chrome_options.add_argument("--start-maximized")
-# chrome_options.add_argument("--window-size=1920x1080") 
-# chrome_options.add_argument('disable-blink-features=AutomationControlled')
-# chrome_options.add_argument('accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
-# chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
 CHROMEDRIVER_PATH = cwd+"\chromedriver.exe"
 browser = webdriver.Chrome(options=chrome_options)
 # PATH = "./chromedriver"
@@ -47,10 +38,10 @@ browser = webdriver.Chrome(options=chrome_options)
 
 browser.get(('https://vod.antenna.gr'))
 
-# loginButton = WebDriverWait(browser, 20).until(
-#     EC.visibility_of_element_located((By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')))
+loginButton = WebDriverWait(browser, 20).until(
+    EC.visibility_of_element_located((By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')))
 
-# browser.execute_script("arguments[0].click();", loginButton)
+browser.execute_script("arguments[0].click();", loginButton)
 print(browser.page_source)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
