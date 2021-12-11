@@ -51,7 +51,7 @@ browser.get(('https://vod.antenna.gr'))
 #     EC.visibility_of_element_located((By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')))
 
 # browser.execute_script("arguments[0].click();", loginButton)
-# print(browser.page_source)
+print(browser.page_source)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
