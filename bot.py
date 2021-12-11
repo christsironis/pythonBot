@@ -37,7 +37,8 @@ browser.get(('https://vod.antenna.gr'))
 # browser.execute_script("arguments[0].click();", loginButton)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
-
+    
+browser.execute_script("arguments[0].click();", loginButton2)
 browser.switch_to.window(browser.window_handles[-1])
 
 print(browser.window_handles)
