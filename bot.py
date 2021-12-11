@@ -6,11 +6,6 @@ import urllib.parse as url
 import redis
 import sys
 import os
-from selenium.webdriver.chrome.options import Options
-cwd = os.getcwd()
-sys.path.append(cwd)
-
-print(cwd)
 
 username= "christsironiss@gmail.com"
 password= "abcdefghik"
@@ -23,33 +18,17 @@ chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument("--window-size=1920x1080") 
 chrome_options.add_argument('disable-blink-features=AutomationControlled')
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
-CHROMEDRIVER_PATH = cwd+"\chromedriver.exe"
 browser = webdriver.Chrome(options=chrome_options)
-# PATH = "./chromedriver"
-# browser = webdriver.Chrome(PATH)
 
 browser.get(('https://vod.antenna.gr'))
 
-# loginButton = WebDriverWait(browser, 20).until(
-#     EC.visibility_of_element_located((By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')))
-
-# browser.execute_script("arguments[0].click();", loginButton)
-print(browser.current_url)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
 browser.execute_script("arguments[0].click();", loginButton2)
-# wait to make sure there are two windows open
-# WebDriverWait(browser, 10).until(lambda d: len(d.window_handles) == 2)
 
-
-# wait to make sure the new window is loaded
-# WebDriverWait(browser, 10).until(lambda d: d.title != "")
-
-# print (browser.title)
-# switch windows
 browser.switch_to.window(browser.window_handles[-1])
-
+print(browser.window_handles)
 print(browser.current_url)
 userInput = browser.find_element(By.ID,'loginId')
 userInput.send_keys(username)
