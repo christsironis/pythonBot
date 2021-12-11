@@ -40,7 +40,7 @@ loginButton2 = WebDriverWait(browser, 20).until(
 
 browser.switch_to.window(browser.window_handles[-1])
 
-print(browser.page_source)
+print(browser.window_handles)
 print(browser.current_url)
 userInput = browser.find_element(By.ID,'loginId')
 userInput.send_keys(username)
