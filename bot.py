@@ -18,18 +18,16 @@ password= "abcdefghik"
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--single-process')
 chrome_options.add_argument('--ignore-certificate-errors')
-
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
-# chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument("--window-size=1920x1080") 
-chrome_options.add_argument('enable-blink-features=AutomationControlled')
+chrome_options.add_argument('disable-blink-features=AutomationControlled')
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
 CHROMEDRIVER_PATH = cwd+"\chromedriver.exe"
 browser = webdriver.Chrome(options=chrome_options)
-# PATH = "./chromedriver"
-# browser = webdriver.Chrome(PATH)
 
 browser.get(('https://vod.antenna.gr'))
 
@@ -41,16 +39,6 @@ print(browser.page_source)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
-browser.execute_script("arguments[0].click();", loginButton2)
-# wait to make sure there are two windows open
-# WebDriverWait(browser, 10).until(lambda d: len(d.window_handles) == 2)
-
-
-# wait to make sure the new window is loaded
-# WebDriverWait(browser, 10).until(lambda d: d.title != "")
-
-# print (browser.title)
-# switch windows
 browser.switch_to.window(browser.window_handles[-1])
 
 print(browser.current_url)
