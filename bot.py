@@ -26,8 +26,8 @@ chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument("--window-size=1920x1080") 
 chrome_options.add_argument('disable-blink-features=AutomationControlled')
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
-CHROMEDRIVER_PATH = cwd+"\chromedriver.exe"
-browser = webdriver.Chrome(options=chrome_options)
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 browser.get(('https://vod.antenna.gr'))
 
