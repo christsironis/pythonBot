@@ -1,4 +1,4 @@
-from selenium import webdriver
+from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,6 +22,7 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument("--window-size=1920x1080") 
 chrome_options.add_argument('disable-blink-features=AutomationControlled')
+chrome_options.add_argument('accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
 CHROMEDRIVER_PATH = cwd+"\chromedriver.exe"
 browser = webdriver.Chrome(options=chrome_options)
