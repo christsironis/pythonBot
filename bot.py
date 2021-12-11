@@ -4,13 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import urllib.parse as url
 import redis
-import sys
 import os
-from selenium.webdriver.chrome.options import Options
-cwd = os.getcwd()
-sys.path.append(cwd)
-
-print(cwd)
 
 username= "christsironiss@gmail.com"
 password= "abcdefghik"
@@ -31,10 +25,6 @@ browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), 
 
 browser.get(('https://vod.antenna.gr'))
 
-# loginButton = WebDriverWait(browser, 20).until(
-#     EC.visibility_of_element_located((By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')))
-
-# browser.execute_script("arguments[0].click();", loginButton)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
     
