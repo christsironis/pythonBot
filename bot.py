@@ -30,7 +30,7 @@ chrome_options.add_argument('--data-path=/tmp/data-path')
 chrome_options.add_argument('--ignore-certificate-errors')
 chrome_options.add_argument('--homedir=/tmp')
 chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-chrome_options.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
+chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
    
 # chrome_options.add_argument('--headless')
 # chrome_options.add_argument('--disable-gpu')
@@ -51,7 +51,7 @@ browser.get(('https://vod.antenna.gr'))
 #     EC.visibility_of_element_located((By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')))
 
 # browser.execute_script("arguments[0].click();", loginButton)
-print(browser.page_source)
+# print(browser.page_source)
 loginButton2 = WebDriverWait(browser, 20).until(
     EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
