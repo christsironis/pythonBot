@@ -3,53 +3,79 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import urllib.parse as url
+import smtplib
 import redis
+import sys
 
-username= "christsironiss@gmail.com"
-password= "abcdefghik"
+def SendEmail(error):
+	fromMy = 'tsiochris0002@yahoo.gr' # fun-fact: from is a keyword in python, you can't use it as variable, did abyone check if this code even works?
+	to  = 'christsironiss@gmail.com'
+	subj='PythonBot'
+	date='2/1/2010'
+	message_text=error
 
-# PATH = "/chromedriver"
-browser = webdriver.Chrome()
+	msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( fromMy, to, subj, date, message_text )
 
-# browser = webdriver.Chrome()
-browser.get(('https://vod.antenna.gr/#/'))
+	username = str('tsiochris0002@yahoo.gr')  
+	password = str('yeilupckstpfkofo')  
 
-loginButton = WebDriverWait(browser, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//div[@class='login-box']//button[1]//span"))
-)
-browser.execute_script("arguments[0].click();", loginButton)
-
-# wait to make sure there are two windows open
-WebDriverWait(browser, 10).until(lambda d: len(d.window_handles) == 2)
-
-
-# wait to make sure the new window is loaded
-WebDriverWait(browser, 10).until(lambda d: d.title != "")
-
-# print (browser.title)
-# switch windows
-browser.switch_to.window(browser.window_handles[-1])
+	server = smtplib.SMTP("smtp.mail.yahoo.com",587)
+	server.starttls()
+	server.login(username,password)
+	server.sendmail(fromMy, to,msg)
+	server.quit()  
+	print("Email with error has been send!")
 
 
-userInput = browser.find_element(By.ID,'loginId')
-userInput.send_keys(username)
-passInput = browser.find_element(By.ID,'password')
-passInput.send_keys(password)
-sundesh = browser.find_element(By.XPATH,'//div[@class="form-row"]//button')
-sundesh.click()
 
-browser.wait_for_request("https://api.antenna.gr/v100/api/auth.class.api.php/logon/354",10)
-for request in browser.requests:
-	if request.url == "https://api.antenna.gr/v100/api/auth.class.api.php/logon/354":
-			token=url.urlencode(request.params)
-			print(token)
-	    
-red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661', 
-                password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
-old = red.get('password')
-red.set('old_password', old)
-red.set('password', token)
+try:
+	username= "christsironiss@gmail.com"
+	password= "abcdefghik"
 
-browser.close()
+	# PATH = "/chromedriver"
+	browser = webdriver.Chrome()
 
+	# browser = webdriver.Chrome()
+	browser.get(('https://vod.antenna.gr/#/'))
+
+	loginButton = WebDriverWait(browser, 10).until(
+		EC.presence_of_element_located((By.XPATH, "//div[@class='login-box']//button[1]//span"))
+	)
+	browser.execute_script("arguments[0].click();", loginButton)
+
+	# wait to make sure there are two windows open
+	WebDriverWait(browser, 10).until(lambda d: len(d.window_handles) == 2)
+
+
+	# wait to make sure the new window is loaded
+	WebDriverWait(browser, 10).until(lambda d: d.title != "")
+
+	# print (browser.title)
+	# switch windows
+	browser.switch_to.window(browser.window_handles[-1])
+
+
+	userInput = browser.find_element(By.ID,'loginId')
+	userInput.send_keys(username)
+	passInput = browser.find_element(By.ID,'password')
+	passInput.send_keys(password)
+	sundesh = browser.find_element(By.XPATH,'//div[@class="form-row"]//button')
+	sundesh.click()
+
+	browser.wait_for_request("https://api.antenna.gr/v100/api/auth.class.api.php/logon/354",10)
+	for request in browser.requests:
+		if request.url == "https://api.antenna.gr/v100/api/auth.class.api.php/logon/354":
+				token=url.urlencode(request.params)
+				print(token)
+			
+	red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661', 
+					password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
+	old = red.get('password')
+	red.set('old_password', old)
+	red.set('password', token)
+
+	browser.close()
+except:
+	print(sys.exc_info())
+	SendEmail(sys.exc_info())
 
