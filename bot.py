@@ -8,23 +8,26 @@ import redis
 import sys
 
 def SendEmail(error):
-	fromMy = 'tsiochris0002@yahoo.gr' # fun-fact: from is a keyword in python, you can't use it as variable, did abyone check if this code even works?
-	to  = 'christsironiss@gmail.com'
-	subj='PythonBot'
-	date='2/1/2010'
-	message_text=error
+	try:
+		fromMy = 'tsiochris0002@yahoo.gr' # fun-fact: from is a keyword in python, you can't use it as variable, did abyone check if this code even works?
+		to  = 'christsironiss@gmail.com'
+		subj='PythonBot'
+		date='2/1/2010'
+		message_text=error
 
-	msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( fromMy, to, subj, date, message_text )
+		msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % ( fromMy, to, subj, date, message_text )
 
-	username = str('tsiochris0002@yahoo.gr')  
-	password = str('yeilupckstpfkofo')  
+		username = str('tsiochris0002@yahoo.gr')  
+		password = str('yeilupckstpfkofo')  
 
-	server = smtplib.SMTP("smtp.mail.yahoo.com",587)
-	server.starttls()
-	server.login(username,password)
-	server.sendmail(fromMy, to,msg)
-	server.quit()  
-	print("Email with error has been send!")
+		server = smtplib.SMTP("smtp.mail.yahoo.com",587)
+		server.starttls()
+		server.login(username,password)
+		server.sendmail(fromMy, to,msg)
+		server.quit()  
+		print("Email with error has been send!")
+	except:
+		print("Error created during email creation!")
 
 
 
