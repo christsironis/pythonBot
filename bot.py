@@ -6,6 +6,7 @@ import urllib.parse as url
 import smtplib
 import redis
 import sys
+import os
 
 def SendEmail(error):
 	try:
