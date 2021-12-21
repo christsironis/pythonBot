@@ -94,7 +94,7 @@ def LogIn():
 
 today=date.today().weekday()
 
-if today == 0 or today == 3 :
-	LogIn()
-else :
-	print("Executes only on Monday=0 and wednesday=3 today is",today)
+# if today == 0 or today == 3 :
+LogIn()
+# else :
+# 	print("Executes only on Monday=0 and wednesday=3 today is",today)
