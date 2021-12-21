@@ -34,7 +34,7 @@ def SendEmail(error):
 
 def LogIn():
 	try:
-		username= "christsironiss@gmail.com"
+		username= "tsiochris0001@yahoo.gr"
 		password= "abcdefghik"
 
 		chrome_options = webdriver.ChromeOptions()
