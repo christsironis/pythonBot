@@ -90,14 +90,14 @@ def LogIn():
         browser=0
         if lines == 0:
             browser = CreateBrowser()
-            print("mlkaaa")
+            print("mlkaaa2222222")
             writeSession(browser)
         else:
             print("mlkaaa")
-            url = lines[0]
+            executor_url = lines[0]
             session_id = lines[1]
             session_id.strip()
-            print(url)
+            print(executor_url)
             print(session_id)
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--headless')
@@ -114,7 +114,7 @@ def LogIn():
             chrome_options.add_argument("--start-maximized")
             chrome_options.add_argument("--window-size=1920x1080")
             chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-            browser = webdriver.Remote(command_executor=url, chrome_options=chrome_options)
+            browser = webdriver.Remote(command_executor=executor_url, chrome_options=chrome_options)
             browser.session_id = session_id
 
 

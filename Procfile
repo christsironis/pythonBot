@@ -1,1 +1,1 @@
-worker : python browser.py
+worker : python bot.py
