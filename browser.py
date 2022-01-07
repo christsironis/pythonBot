@@ -20,4 +20,6 @@ def CreateBrowser():
     print("webdriver.chrome as browser has been created.")
     return browser
 
-browser = CreateBrowser()
+browser=0
+if __name__ == "__main__":
+    browser = CreateBrowser()
