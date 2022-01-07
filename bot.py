@@ -44,7 +44,7 @@ def GetSession():
         url = red.get('url')
         session_id = red.get('session_id')
         red.quit()
-        print('webdriver session details was read. \n url= {url[2:-1]} \n session_id= {session_id[2:-1]}')
+        print(f'webdriver session details was read. \n url= {url[2:-1]} \n session_id= {session_id[2:-1]}')
         data=[url,session_id]
         return data
     except:
@@ -81,7 +81,7 @@ def Browser():
         browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
         print("Old browser has been initiated.")
     else:
-        browser = webdriver.Remote(command_executor=data[0][2:-1], chrome_options=chrome_options)
+        browser = webdriver.Remote(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options,command_executor=data[0][2:-1])
         browser.session_id = data[1][2:-1]
         print("New browser has been created.")
     return browser
