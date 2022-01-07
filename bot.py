@@ -36,32 +36,6 @@ def SendEmail(funct, error):
     except:
         print("Error created during email creation!")
 
-
-def GetSession():
-    try:
-        red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
-            password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
-        url = red.get('url')
-        session_id = red.get('session_id')
-        red.quit()
-        print(f'webdriver session details was read. \n url= {url} \n session_id= {session_id}')
-        data=[url,session_id]
-        return data
-    except:
-        print(sys.exc_info())
-
-
-def SetSession(driver):
-    url = driver.command_executor._url
-    session_id = driver.session_id
-    red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
-        password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
-    red.set('url', url)
-    red.set('session_id', session_id)
-    red.quit()
-    print('Wrote webdriver session details')
-
-
 def Browser():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--headless')
@@ -76,15 +50,7 @@ def Browser():
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_argument("--window-size=1920x1080")
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    data = GetSession()
-    if data[0] == None:
-        browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-        print("Old browser has been initiated.")
-    else:
-        capabilities = chrome_options.to_capabilities()
-        browser = webdriver.Remote(command_executor=data[0], desired_capabilities=capabilities)
-        browser.session_id = data[1]
-        print("New browser has been created.")
+    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     return browser
 
 
@@ -98,10 +64,9 @@ def LogIn():
 
         browser.get(('https://vod.antenna.gr'))
 
-        loginButton2 = WebDriverWait(browser, 20).until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
+        loginButton = WebDriverWait(browser, 20).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
-        browser.execute_script("arguments[0].click();", loginButton2)
+        browser.execute_script("arguments[0].click();", loginButton)
 
         browser.switch_to.window(browser.window_handles[-1])
         print(browser.window_handles)
@@ -112,8 +77,7 @@ def LogIn():
         userInput.send_keys(username)
         passInput = browser.find_element(By.ID, 'password')
         passInput.send_keys(password)
-        sundesh = browser.find_element(
-            By.XPATH, '//div[@class="form-row"]//button')
+        sundesh = browser.find_element(By.XPATH, '//div[@class="form-row"]//button')
         sundesh.click()
 
         # finds the request that has the password
