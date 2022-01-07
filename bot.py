@@ -39,13 +39,15 @@ def SendEmail(funct, error):
 
 def ReadSession():
     try:
-        if os.stat("sessioninfo.txt").st_size == 0:
-            return 0
-        f = open("sessioninfo.txt", "r")
-        lines = f.readlines()
-        f.close()
+        # sends the password to the redis server
+        red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
+            password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
+        url = red.get('url')
+        session_id = red.get('session_id')
+        red.quit()
         print('webdriver session details was read')
-        return lines
+        data=[url,session_id]
+        return data
     except:
         print(sys.exc_info())
 
@@ -53,10 +55,12 @@ def ReadSession():
 def writeSession(driver):
     url = driver.command_executor._url
     session_id = driver.session_id
-    f = open("sessioninfo.txt", "w")
-    f.write(f"{url}\n")
-    f.write(f"{session_id}")
-    f.close()
+    # sends the password to the redis server
+    red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
+        password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
+    red.set('url', url)
+    red.set('session_id', session_id)
+    red.quit()
     print('Wrote webdriver session details')
 
 
@@ -86,16 +90,16 @@ def LogIn():
         username = "tsiochris0002@yahoo.gr"
         # username = "christsironiss@gmail.com"
         password = "abcdefghik"
-        lines = ReadSession()
+        data = ReadSession()
         browser=0
-        if lines == 0:
+        if len(data) == 0:
             browser = CreateBrowser()
             print("mlkaaa2222222")
             writeSession(browser)
         else:
             print("mlkaaa")
-            executor_url = lines[0]
-            session_id = lines[1]
+            executor_url = data[0]
+            session_id = data[1]
             session_id.strip()
             print(executor_url)
             print(session_id)
@@ -151,7 +155,7 @@ def LogIn():
                     old = red.get('password')
                     red.set('old_password', old)
                     red.set('password', token)
-
+                    red.quit()
                     # browser.quit()
                     return token
     except:
