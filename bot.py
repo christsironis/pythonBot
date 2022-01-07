@@ -39,14 +39,13 @@ def SendEmail(funct, error):
 
 def ReadSession():
     try:
+        if os.stat("sessioninfo.txt").st_size == 0:
+            return 0
         f = open("sessioninfo.txt", "r")
         lines = f.readlines()
         f.close()
         print('webdriver session details was read')
-        if lines:
-            return lines
-        else:
-            return 0
+        return lines
     except:
         print(sys.exc_info())
 
@@ -88,7 +87,13 @@ def LogIn():
         # username = "christsironiss@gmail.com"
         password = "abcdefghik"
         lines = ReadSession()
-        if lines:
+        browser=0
+        if lines == 0:
+            browser = CreateBrowser()
+            print("mlkaaa")
+            writeSession(browser)
+        else:
+            print("mlkaaa")
             url = lines[0]
             session_id = lines[1]
             session_id.strip()
@@ -111,9 +116,7 @@ def LogIn():
             chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
             browser = webdriver.Remote(command_executor=url, chrome_options=chrome_options)
             browser.session_id = session_id
-        else:
-            browser = CreateBrowser()
-            writeSession(browser)
+
 
         browser.get(('https://vod.antenna.gr'))
 
@@ -194,11 +197,6 @@ if len(sys.argv) > 1:
     override = sys.argv[1]
 
 if (today == 0 or today == 3 or override):
-    if browser.browser:
-        print("browser already exists")
-    else:
-        print("browser not found, initialize CreateBrowser")
-        browser = browser.CreateBrowser()
     password = LogIn()
     loginToken = LoginToken(password)
     deregester(password, loginToken)
