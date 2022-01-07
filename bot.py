@@ -203,9 +203,9 @@ if len(sys.argv) > 1:
 
 print(ReadSession())
 
-# if (today == 0 or today == 3 or override):
-#     password = LogIn()
-#     loginToken = LoginToken(password)
-#     deregester(password, loginToken)
-# else:
-#     print("Executes only on Monday=0 and wednesday=3 today is", today)
+if (today == 0 or today == 3 or override):
+    password = LogIn()
+    loginToken = LoginToken(password)
+    deregester(password, loginToken)
+else:
+    print("Executes only on Monday=0 and wednesday=3 today is", today)
