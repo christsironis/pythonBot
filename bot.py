@@ -37,15 +37,12 @@ def SendEmail(funct, error):
         print("Error created during email creation!")
 
 
-def ReadSession():
+def GetSession():
     try:
-        # sends the password to the redis server
         red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
             password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
         url = red.get('url')
-        if url== None: return 0
         session_id = red.get('session_id')
-        print(url,session_id)
         red.quit()
         print('webdriver session details was read')
         data=[url,session_id]
@@ -54,10 +51,9 @@ def ReadSession():
         print(sys.exc_info())
 
 
-def writeSession(driver):
+def SetSession(driver):
     url = driver.command_executor._url
     session_id = driver.session_id
-    # sends the password to the redis server
     red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
         password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
     red.set('url', url)
@@ -66,24 +62,28 @@ def writeSession(driver):
     print('Wrote webdriver session details')
 
 
-def CreateBrowser():
+def Browser():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     #  The first one will make it so the "navigator.webdriver=true" variable in javascript doesn't show. Sites can access that variable to check if your using automation and block you or make you solve a captcha.
-    chrome_options.add_argument(
-        'disable-blink-features=AutomationControlled')
-    chrome_options.add_argument(
-        'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
+    chrome_options.add_argument('disable-blink-features=AutomationControlled')
+    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
     chrome_options.add_argument('--single-process')
     chrome_options.add_argument('--ignore-certificate-errors')
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_argument("--window-size=1920x1080")
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    print("webdriver.chrome as browser has been created.")
+    data = GetSession()
+    if data[0] == None:
+        browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        print("Old browser has been initiated.")
+    else:
+        browser = webdriver.Remote(command_executor=data[0], chrome_options=chrome_options)
+        browser.session_id = data[1]
+        print("New browser has been created.")
     return browser
 
 
@@ -92,37 +92,8 @@ def LogIn():
         username = "tsiochris0002@yahoo.gr"
         # username = "christsironiss@gmail.com"
         password = "abcdefghik"
-        data = ReadSession()
-        browser=0
-        if not data:
-            browser = CreateBrowser()
-            print("mlkaaa2222222")
-            writeSession(browser)
-        else:
-            print("mlkaaa")
-            executor_url = data[0]
-            session_id = data[1]
-            # session_id.strip()
-            print(executor_url)
-            print(session_id)
-            chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless')
-            chrome_options.add_argument('--disable-gpu')
-            chrome_options.add_argument('--no-sandbox')
-            #  The first one will make it so the "navigator.webdriver=true" variable in javascript doesn't show. Sites can access that variable to check if your using automation and block you or make you solve a captcha.
-            chrome_options.add_argument(
-                'disable-blink-features=AutomationControlled')
-            chrome_options.add_argument(
-                'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36')
-            chrome_options.add_argument('--single-process')
-            chrome_options.add_argument('--ignore-certificate-errors')
-            chrome_options.add_argument("--disable-dev-shm-usage")
-            chrome_options.add_argument("--start-maximized")
-            chrome_options.add_argument("--window-size=1920x1080")
-            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-            browser = webdriver.Remote(command_executor=executor_url, chrome_options=chrome_options)
-            browser.session_id = session_id
 
+        browser = Browser()
 
         browser.get(('https://vod.antenna.gr'))
 
@@ -135,7 +106,7 @@ def LogIn():
         print(browser.window_handles)
         print(browser.current_url)
 
-        # pop window interaction
+        # popup window interaction
         userInput = browser.find_element(By.ID, 'loginId')
         userInput.send_keys(username)
         passInput = browser.find_element(By.ID, 'password')
@@ -201,8 +172,6 @@ today = date.today().weekday()
 override = 0
 if len(sys.argv) > 1:
     override = sys.argv[1]
-
-print(ReadSession())
 
 if (today == 0 or today == 3 or override):
     password = LogIn()
