@@ -43,6 +43,7 @@ def ReadSession():
         red = redis.Redis(host='redis-13661.c233.eu-west-1-1.ec2.cloud.redislabs.com', port='13661',
             password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
         url = red.get('url')
+        if url== None: return 0
         session_id = red.get('session_id')
         print(url,session_id)
         red.quit()
@@ -93,7 +94,7 @@ def LogIn():
         password = "abcdefghik"
         data = ReadSession()
         browser=0
-        if len(data) == 0:
+        if data:
             browser = CreateBrowser()
             print("mlkaaa2222222")
             writeSession(browser)
