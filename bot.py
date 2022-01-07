@@ -44,6 +44,7 @@ def ReadSession():
             password='CyPk7oc145cDyTnKvVfVVrDF3Ic0NZa5')
         url = red.get('url')
         session_id = red.get('session_id')
+        print(url,session_id)
         red.quit()
         print('webdriver session details was read')
         data=[url,session_id]
@@ -100,7 +101,7 @@ def LogIn():
             print("mlkaaa")
             executor_url = data[0]
             session_id = data[1]
-            session_id.strip()
+            # session_id.strip()
             print(executor_url)
             print(session_id)
             chrome_options = webdriver.ChromeOptions()
@@ -200,9 +201,11 @@ override = 0
 if len(sys.argv) > 1:
     override = sys.argv[1]
 
-if (today == 0 or today == 3 or override):
-    password = LogIn()
-    loginToken = LoginToken(password)
-    deregester(password, loginToken)
-else:
-    print("Executes only on Monday=0 and wednesday=3 today is", today)
+print(ReadSession())
+
+# if (today == 0 or today == 3 or override):
+#     password = LogIn()
+#     loginToken = LoginToken(password)
+#     deregester(password, loginToken)
+# else:
+#     print("Executes only on Monday=0 and wednesday=3 today is", today)
