@@ -125,7 +125,7 @@ def deregester(password, token):
                                  "accept-language": "en,el;q=0.9",
                                  "content-type": "application/x-www-form-urlencoded",
                              },
-                             data=re.findall("version.*&username", password)[0].split("username")[0] + "loginToken=" + token)
+                             data=re.findall(".*(?=username)", password)[0] + "loginToken=" + token)
         print(post.json())
     except:
         print(sys.exc_info())
