@@ -10,7 +10,7 @@ import redis
 import sys
 import re
 
-def SendEmail(error):
+def SendEmail(funct,error):
     try:
         # fun-fact: from is a keyword in python, you can't use it as variable, did abyone check if this code even works?
         fromMy = 'tsiochris0002@yahoo.gr'
@@ -29,7 +29,7 @@ def SendEmail(error):
         server.login(username, password)
         server.sendmail(fromMy, to, msg)
         server.quit()
-        print("Email with error has been send!")
+        print("Error in "+funct+".Email has been send!")
 
     except:
         print("Error created during email creation!")
@@ -37,8 +37,8 @@ def SendEmail(error):
 
 def LogIn():
     try:
-        # username = "tsiochris0001@yahoo.gr"
-        username = "christsironiss@gmail.com"
+        username = "tsiochris0002@yahoo.gr"
+        # username = "christsironiss@gmail.com"
         password = "abcdefghik"
 
         browser.get(('https://vod.antenna.gr'))
@@ -81,7 +81,7 @@ def LogIn():
 
     except:
         print(sys.exc_info())
-        SendEmail(sys.exc_info())
+        SendEmail("Selenium Login \n",sys.exc_info())
 
 
 def LoginToken(password):
@@ -97,7 +97,7 @@ def LoginToken(password):
         return data["LogonResponse"]["Success"]['LoginToken']
     except:
         print(sys.exc_info())
-        SendEmail(sys.exc_info())
+        SendEmail("LoginToken \n",sys.exc_info())
 
 
 def deregester(password, token):
@@ -112,7 +112,7 @@ def deregester(password, token):
         print(post.json())
     except:
         print(sys.exc_info())
-        SendEmail(sys.exc_info())
+        SendEmail("Deregestration \n",sys.exc_info())
 
 
 today=date.today().weekday()
