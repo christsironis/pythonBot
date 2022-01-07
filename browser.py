@@ -1,5 +1,6 @@
 from seleniumwire import webdriver
 import os
+
 def CreateBrowser():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--headless')
@@ -22,4 +23,4 @@ def CreateBrowser():
 
 
 if __name__ == "__main__":
-    print("This is being executed only on import")
+    browser = CreateBrowser()

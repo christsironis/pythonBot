@@ -2,10 +2,10 @@ from datetime import date
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from browser import browser,CreateBrowser 
 import urllib.parse as url
 import requests
 import smtplib
+import browser 
 import redis
 import sys
 import re
@@ -122,11 +122,11 @@ if len(sys.argv) > 1:
     override = sys.argv[1]
 
 if (today == 0 or today == 3 or override ) :
-    if browser :
+    if browser.browser :
         print("browser already exists")
     else:
         print("browser not found, initialize CreateBrowser")
-        CreateBrowser()
+        browser = browser.CreateBrowser()
     password = LogIn()
     loginToken = LoginToken(password)
     deregester(password, loginToken)
