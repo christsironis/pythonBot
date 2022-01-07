@@ -20,6 +20,6 @@ def CreateBrowser():
     print("webdriver.chrome as browser has been created.")
     return browser
 
-browser=0
+
 if __name__ == "__main__":
-    browser = CreateBrowser()
+    print("This is being executed only on import")
