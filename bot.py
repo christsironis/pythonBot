@@ -94,7 +94,7 @@ def LogIn():
         password = "abcdefghik"
         data = ReadSession()
         browser=0
-        if data:
+        if not data:
             browser = CreateBrowser()
             print("mlkaaa2222222")
             writeSession(browser)
