@@ -71,8 +71,6 @@ def LogIn():
         storage = LocalStorage(browser)
         device = re.findall(',"messageInfo".*', storage["SHARED_DEVICE"])[0]
         storage["SHARED_DEVICE"]='{"deviceId-v1":"Web-v1-f535ea9af532b22c72abfcd2c9715d34-159c329c703b777dbe5b0e5d669aa52f-0.624705436982895"' + device
-        print(device) 
-        print(storage["SHARED_DEVICE"]) 
 
         browser.refresh()
 
