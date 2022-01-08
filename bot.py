@@ -67,7 +67,7 @@ def LogIn():
         loginButton = WebDriverWait(browser, 20).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
         browser.execute_script("arguments[0].click();", loginButton)
-
+        browser.execute_script("window.localStorage;")
         browser.switch_to.window(browser.window_handles[-1])
         print(browser.window_handles)
         print(browser.current_url)
