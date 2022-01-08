@@ -15,14 +15,14 @@ import os
 
 def SendEmail(funct, error):
     try:
+        if emailSend == True: return
         # fun-fact: from is a keyword in python, you can't use it as variable, did abyone check if this code even works?
         fromMy = 'tsiochris0002@yahoo.gr'
         to = 'christsironiss@gmail.com'
         subj = 'PythonBot'
         date = '2/1/2010'
         message_text = error
-        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % (
-            fromMy, to, subj, date, message_text)
+        msg = "From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s" % (fromMy, to, subj, date, message_text)
 
         username = str('tsiochris0002@yahoo.gr')
         password = str('yeilupckstpfkofo')
@@ -67,9 +67,9 @@ def LogIn():
 
         loginButton = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
+        # set device_id on localstorage
         storage = LocalStorage(browser)
         storage["SHARED_DEVICE"]='{"deviceId-v1":"Web-v1-f535ea9af532b22c72abfcd2c9715d34-159c329c703b777dbe5b0e5d669aa52f-0.624705436982895","messageInfo":{"pushtestId":{"displayCount":0,"lastShown":0,"expiresAfter":"2022-06-06T00:00:00Z","capProcessedTime":1641677055}},"installTimestamp":1641677055,"lastLaunchTimestamp":1641677055,"launches":1,"lastVersion":"1.0.7","launchesSinceUpgrade":1}'
-        print(storage["SHARED_DEVICE"])
 
         browser.refresh()
 
@@ -107,6 +107,7 @@ def LogIn():
     except:
         print(sys.exc_info())
         SendEmail("Selenium Login \n", sys.exc_info())
+        emailSend=True
 
 
 def LoginToken(password):
@@ -123,6 +124,7 @@ def LoginToken(password):
     except:
         print(sys.exc_info())
         SendEmail("LoginToken \n", sys.exc_info())
+        emailSend=True
 
 
 def deregester(password, token):
@@ -138,10 +140,11 @@ def deregester(password, token):
     except:
         print(sys.exc_info())
         SendEmail("Deregestration \n", sys.exc_info())
+        emailSend=True
 
 
 today = date.today().weekday()
-
+emailSend=False
 override = 0
 if len(sys.argv) > 1:
     override = sys.argv[1]
