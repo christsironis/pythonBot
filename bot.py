@@ -4,12 +4,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import urllib.parse as url
+import localStorage
 import requests
 import smtplib
 import redis
 import sys
 import re
 import os
+
+from pythonBot.localStorage import LocalStorage
 
 
 def SendEmail(funct, error):
@@ -66,8 +69,14 @@ def LogIn():
 
         loginButton = WebDriverWait(browser, 20).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="login-box"]//button[1]//span')))
 
+        storage = LocalStorage(browser)
+        print(storage["SHARED_DEVICE"])
+        storage["SHARED_DEVICE"]='{"deviceId-v1":"Web-v1-f535ea9af532b22c72abfcd2c9715d34-159c329c703b777dbe5b0e5d669aa52f-0.624705436982895","messageInfo":{"pushtestId":{"displayCount":0,"lastShown":0,"expiresAfter":"2022-06-06T00:00:00Z","capProcessedTime":1641677055}},"installTimestamp":1641677055,"lastLaunchTimestamp":1641677055,"launches":1,"lastVersion":"1.0.7","launchesSinceUpgrade":1}'
+        print(storage["SHARED_DEVICE"])
+
+        browser.refresh()
+
         browser.execute_script("arguments[0].click();", loginButton)
-        browser.execute_script("window.localStorage;")
         browser.switch_to.window(browser.window_handles[-1])
         print(browser.window_handles)
         print(browser.current_url)
