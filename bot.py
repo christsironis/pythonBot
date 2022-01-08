@@ -1,18 +1,16 @@
 from datetime import date
+from localStorage import *
 from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import urllib.parse as url
-import localStorage
 import requests
 import smtplib
 import redis
 import sys
 import re
 import os
-
-from pythonBot.localStorage import LocalStorage
 
 
 def SendEmail(funct, error):
