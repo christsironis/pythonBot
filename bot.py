@@ -69,8 +69,7 @@ def LogIn():
 
         # set device_id on localstorage
         storage = LocalStorage(browser)
-        device = re.findall(',"messageInfo".*', storage["SHARED_DEVICE"])[0]
-        storage["SHARED_DEVICE"]='{"deviceId-v1":"Web-v1-f535ea9af532b22c72abfcd2c9715d34-159c329c703b777dbe5b0e5d669aa52f-0.624705436982895"' + device
+        storage["SHARED_DEVICE"]='{"deviceId-v1":"Web-v1-2bf2d831ef48df5887a7c31fee76927d-8d87f8ebfd43371dab146e7d7cfa5a3a-0.4778393430973782","messageInfo":{"pushtestId":{"displayCount":0,"lastShown":0,"expiresAfter":"2022-06-06T00:00:00Z","capProcessedTime":1641729043}},"installTimestamp":1641729042,"lastLaunchTimestamp":1641729042,"launches":1,"lastVersion":"1.0.7","launchesSinceUpgrade":1}'
 
         browser.refresh()
 
