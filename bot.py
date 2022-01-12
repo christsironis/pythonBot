@@ -154,4 +154,4 @@ if (today == 0 or today == 3 or override):
     loginToken = LoginToken(password)
     deregester(password, loginToken)
 else:
-    print("Executes only on Monday=0 and wednesday=3 today is", today)
+    print("Executes only on Monday=0 and thirsday=3 today is", today)
