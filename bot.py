@@ -81,8 +81,8 @@ def LogIn():
         print(browser.current_url)
 
         # popup window interaction
-        loginButton = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="top-button-section"]//a/button[@class="secondary-button"]')))
-        browser.execute_script("arguments[0].click();", loginButton)
+        # loginButton = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="top-button-section"]//a/button[@class="secondary-button"]')))
+        # browser.execute_script("arguments[0].click();", loginButton)
         userInput = browser.find_element(By.ID, 'loginId')
         userInput.send_keys(username)
         passInput = browser.find_element(By.ID, 'password')
